@@ -7,12 +7,13 @@
                 <div class="row mb-3">
                     <div class="row mb-6">
                         <label for="username" class="form-label">Username:</label><br>
-                        <input required type="text" class="form-control" id="username" @blur="() => validateName(true)" @input="() => validateName(false)" v-model="formData.username">
+                        <input type="text" class="form-control" id="username" @blur="() => validateName(true)" @input="() => validateName(false)" v-model="formData.username">
                         <div v-if="errors.username" class="text-danger">{{errors.username}}</div>
                     </div> 
                     <div class="row mb-6">
                         <label class="form-label" for="password">Password: </label>
-                        <input required minlength="4" maxlength="10" type="password" class="form-control" id="password" model="formData.password">
+                        <input type="password" class="form-control" id="password" @blur="() => validatePassword(true)" @input="() => validatePassword(false)"  v-model="formData.password">
+                        <div v-if="errors.password" class="text-danger">{{errors.password}}</div>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -27,7 +28,7 @@
                     
                     <div class="row mb-6">
                         <label for="gender" class="form-label">Gender</label><br>
-                        <select required class="form-select" id="gender" v-model="formData.gender">
+                        <select class="form-select" id="gender" v-model="formData.gender">
                             <option value="female">Female</option>
                             <option value="male">Male</option>
                             <option value="other">Other</option>
@@ -36,7 +37,7 @@
                 </div>
                 <div class="row mb-3">
                     <label for="reason" class="form-label">Reason For Joining:</label>
-                    <textarea required minlength="10" class="form-control" id="reason" name="reason" rows="3" v-model="formData.reason"></textarea>
+                    <textarea class="form-control" id="reason" name="reason" rows="3" v-model="formData.reason"></textarea>
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary me-2">Submit</button>
@@ -75,6 +76,29 @@ import { ref } from 'vue';
       gender: ''
   });
   
+  const submittedCards = ref([]);
+  
+  const submitForm = () => {
+    validateName(true);
+    validatePassword(true);
+    if (!errors.value.username && !errors.value.password){
+        submittedCards.value.push({
+            ...formData.value
+        });
+        clearForm();
+    }
+  };
+
+  const clearForm = () => {
+    formData.value = {
+      username: '',
+      password: '',
+      isAustralian: false,
+      reason: '',
+      gender: ''        
+    }
+  };
+  
   const errors = ref({
       username: null,
       password: null,
@@ -111,18 +135,6 @@ import { ref } from 'vue';
         if (blur) errors.value.password = `Password must contain at least special character.`;
     } else{
         errors.value.password = null;
-    }
-  };
-  
-  const submittedCards = ref([]);
-  
-  const submitForm = () => {
-    validateName(true);
-    if (!errors.value.username){
-        submittedCards.value.push({
-            ...formData.value
-        });
-        clearForm();
     }
   };
 </script>
