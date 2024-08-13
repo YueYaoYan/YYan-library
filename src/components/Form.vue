@@ -28,16 +28,18 @@
                     
                     <div class="row mb-6">
                         <label for="gender" class="form-label">Gender</label><br>
-                        <select class="form-select" id="gender" v-model="formData.gender">
+                        <select class="form-select" id="gender" @blur="() => validateGender(true)" @input="() => validateGender(false)"  v-model="formData.gender">
                             <option value="female">Female</option>
                             <option value="male">Male</option>
                             <option value="other">Other</option>
                         </select>
+                        <div v-if="errors.gender" class="text-danger">{{errors.gender}}</div>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <label for="reason" class="form-label">Reason For Joining:</label>
-                    <textarea class="form-control" id="reason" name="reason" rows="3" v-model="formData.reason"></textarea>
+                    <textarea class="form-control" id="reason" name="reason" rows="3" @blur="() => validateReason(true)" @input="() => validateReason(false)" v-model="formData.reason"></textarea>
+                    <div v-if="errors.reason" class="text-danger">{{errors.reason}}</div>
                 </div>
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary me-2">Submit</button>
@@ -48,7 +50,7 @@
         </div>
     </div>
     </div>
-    <div class="row mt-5" v-if="submittedCards.length">
+    <!-- <div class="row mt-5" v-if="submittedCards.length">
         <div class="d-flex flex-wrap justify-content-start">
            <div v-for="(card, index) in submittedCards" :key="index" class="card m-2" style="width: 18rem;">
               <div class="card-header">
@@ -63,11 +65,27 @@
               </ul>
            </div>
         </div>
-     </div>
+     </div> -->
+    <div class="row mt-5">
+        <DataTable :value="submittedCards" tableStyle="min-width: 50rem">
+            <Column v-for="col of columns" :key="col.field" :field="col.field" :header="col.header"></Column>
+        </DataTable>
+    </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+
+const columns = [
+    { field: 'username', header: 'Username' },
+    { field: 'password', header: 'Password' },
+    { field: 'isAustralian', header: 'Australian Resident' },
+    { field: 'gender', header: 'Gender' },
+    { field: 'reason', header: 'Reason' }
+];
+
   const formData = ref({
       username: '',
       password: '',
@@ -81,7 +99,9 @@ import { ref } from 'vue';
   const submitForm = () => {
     validateName(true);
     validatePassword(true);
-    if (!errors.value.username && !errors.value.password){
+    validateGender(true);
+    validateReason(true);
+    if (!errors.value.username && !errors.value.password && !errors.value.gender && !errors.value.reason){
         submittedCards.value.push({
             ...formData.value
         });
@@ -137,6 +157,22 @@ import { ref } from 'vue';
         errors.value.password = null;
     }
   };
+
+  const validateReason = (blur) => {
+    if (formData.value.reason.length <10){
+        if (blur) errors.value.reason = "Reason must be at least 10 characters.";
+    } else{
+        errors.value.reason = null;
+    }
+  }
+  
+  const validateGender = (blur) => {
+    if (!formData.value.gender){
+        if (blur) errors.value.gender = "Gender must be selected.";
+    } else{
+        errors.value.gender = null;
+    }
+  }
 </script>
 
 <style scoped>
