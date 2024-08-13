@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-8 offset-md-2">
             <h1 class="tex-center">User Information Form / Credentials</h1>
-            <form>
+            <form @submit.prevent="submitForm">
                 <div class="row mb-3">
                     <div class="row mb-6">
                         <label for="username" class="form-label">Username:</label><br>
