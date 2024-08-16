@@ -5,11 +5,11 @@
             <h1 class="tex-center">User Information Form / Credentials</h1>
             <form @submit.prevent="submitForm">
                 <div class="row mb-3">
-                    <div class="row mb-6">
+                    <div class="col-mb-6 col-sm-6">
                         <label for="username" class="form-label">Username:</label><br>
                         <input type="text" class="form-control" id="username" v-model="formData.username">
                     </div> 
-                    <div class="row mb-6">
+                    <div class="col-mb-6 col-sm-6">
                         <label class="form-label" for="password">Password:</label>
                         <input type="password" 
                         class="form-control"
@@ -17,7 +17,7 @@
                     </div>  
                 </div>
                 <div class="row mb-3">
-                    <div class="row mb-6">
+                    <div class="col-mb-6 col-sm-6">
                         <div class="form-check">
                             <label clas="form-check-label" for="isAustralian">Australian Resident?</label>
                             <input type="checkbox" 
@@ -25,7 +25,8 @@
                             v-model="formData.isAustralian">
                         </div>
                     </div>
-                    
+                </div>
+                <div class="row mb-3">
                     <div class="row mb-6">
                         <label for="gender" class="form-label">Gender</label><br>
                         <select class="form-select" id="gender" v-model="formData.gender">
