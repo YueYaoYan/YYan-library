@@ -3,6 +3,7 @@ import { ref } from "vue";
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import LoginView from '../views/LoginView.vue'
+import store from '@/store/store';
 
 const isAuthenticated = ref(false); 
 
@@ -35,11 +36,11 @@ const routes = [
     component: AboutView,
     beforeEnter: (to, from, next) => {
         // Perform logic before entering the About route
-        if (isAuthenticated.value) {
+        if (store.state.isAuthenticated) {
           next();
         } else {
           alert("You are not authenticated");
-          next({ name: 'Home' });
+          next({ name: 'Login' });
         }
       }
   }

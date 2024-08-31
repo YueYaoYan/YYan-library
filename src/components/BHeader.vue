@@ -10,13 +10,41 @@
             >
           </li>
           <li class="nav-item">
-            <router-link to="/login" class="nav-link" active-class="active">Login</router-link>
+            <router-link v-if="store.state.isAuthenticated" to="/about" class="nav-link" active-class="active" aria-current="page"
+              >
+              About
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link v-if="!store.state.isAuthenticated" to="/login" class="nav-link" active-class="active">Login</router-link>
+            <button v-if="store.state.isAuthenticated" type="button" class="btn btn-secondary" @click="handleLogout">Logout</button>
           </li>
         </ul>
       </header>
     </div>
   </template>
   
+<script>
+import { mapActions } from 'vuex';
+import store from '@/store/store';
+
+export default {
+  data(){
+    return{
+    store: store,
+  }
+}
+  ,
+    methods:{
+      ...mapActions(['logout']),
+      handleLogout(){
+        this.logout();
+        this.$router.push({name:'Login'})
+      }
+    }
+  };
+</script>
+
   <style scoped>
   .b-example-divider {
     height: 3rem;
