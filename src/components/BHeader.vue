@@ -15,9 +15,15 @@
               About
             </router-link>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <router-link v-if="!store.state.isAuthenticated" to="/login" class="nav-link" active-class="active">Login</router-link>
             <button v-if="store.state.isAuthenticated" type="button" class="btn btn-secondary" @click="handleLogout">Logout</button>
+          </li> -->
+          <li class="nav-item">
+            <router-link to="/FireLogin" class="nav-link" active-class="active">Firebase Login</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/FireRegister" class="nav-link" active-class="active">Firebase Register</router-link>
           </li>
         </ul>
       </header>
