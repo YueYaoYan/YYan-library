@@ -15,6 +15,15 @@
         </li>
         <li class="nav-item">
           <router-link
+            to="/addBook"
+            class="nav-link"
+            active-class="active"
+            aria-current="page"
+            >Add Book</router-link
+          >
+        </li>
+        <li class="nav-item">
+          <router-link
             v-if="!isAuthenticated"
             to="/FireLogin"
             class="nav-link"

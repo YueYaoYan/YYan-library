@@ -7,8 +7,15 @@ import UserHomeView from "@/views/UserHomeView.vue";
 import store from "@/store/store";
 import FirebaseSigninView from "@/views/FirebaseSigninView.vue";
 import FirebaseRegisterView from "@/views/FirebaseRegisterView.vue";
+import AddBookView from "@/views/AddBookView.vue";
+
 
 const routes = [
+  {
+    path: "/addBook",
+    name: "AddBook",
+    component: AddBookView,
+  },
   {
     path: "/",
     name: "Home",
