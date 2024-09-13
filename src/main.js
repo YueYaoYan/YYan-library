@@ -1,30 +1,32 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
+import "bootstrap/dist/css/bootstrap.min.css";
 
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store/store'
+import { createApp } from "vue";
+import App from "./App.vue";
+import router from "./router";
+import store from "./store/store";
 
-import PrimeVue from 'primevue/config'
-import Aura from '@primevue/themes/aura'
-import { initializeApp } from "firebase/app";
+import PrimeVue from "primevue/config";
+import Aura from "@primevue/themes/aura";
+import { auth } from "./firebase/init";
 
-const app = createApp(App)
-app.use(PrimeVue, { theme: { preset: Aura } })
-app.use(store)
-app.use(router)
+let app;
 
-app.mount('#app')
+// change listener
+auth.onAuthStateChanged(async(user) => {
+  if (user) {
+    store.commit('setUser', user);
+    await store.dispatch('fetchUserData', user);  
+  } else {
+    store.commit('setUser', null);
+    store.commit('setUserData', null);
+  }
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyAhNKE2xEM4TXaFkGP4WLvX6bRDtFkKvSE",
-  authDomain: "week7-yaoyan.firebaseapp.com",
-  projectId: "week7-yaoyan",
-  storageBucket: "week7-yaoyan.appspot.com",
-  messagingSenderId: "468651552332",
-  appId: "1:468651552332:web:38487667f9d6228380cee9"
-};
+  if (!app) {
+    app = createApp(App);
+    app.use(PrimeVue, { theme: { preset: Aura } });
+    app.use(store);
+    app.use(router);
 
-// Initialize Firebase
-initializeApp(firebaseConfig);
+    app.mount("#app");
+  }
+});

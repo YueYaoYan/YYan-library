@@ -43,9 +43,9 @@
     },
     methods:{
       ...mapActions(['login']),
-      handleLogin(){
+      async handleLogin(){
         const user = {username: this.username, password: this.password};
-        this.login(user);
+        await this.login(user);
         this.$router.push({name:'About'})
       }
     }
