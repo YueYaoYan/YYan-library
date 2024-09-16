@@ -24,6 +24,15 @@
         </li>
         <li class="nav-item">
           <router-link
+            to="/getBookCount"
+            class="nav-link"
+            active-class="active"
+            aria-current="page"
+            >Book Count</router-link
+          >
+        </li>
+        <li class="nav-item">
+          <router-link
             v-if="!isAuthenticated"
             to="/FireLogin"
             class="nav-link"
