@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import AboutView from "../views/AboutView.vue";
 import LoginView from "../views/LoginView.vue";
 import AdminHomeView from "@/views/AdminHomeView.vue";
 import UserHomeView from "@/views/UserHomeView.vue";
@@ -9,6 +8,8 @@ import FirebaseSigninView from "@/views/FirebaseSigninView.vue";
 import FirebaseRegisterView from "@/views/FirebaseRegisterView.vue";
 import AddBookView from "@/views/AddBookView.vue";
 import GetBookCountView from "@/views/GetBookCountView.vue";
+import WeatherView from "@/views/WeatherView.vue";
+import CountBookAPI from "@/views/CountBookAPI.vue";
 
 
 const routes = [
@@ -21,6 +22,16 @@ const routes = [
     path: "/getBookCount",
     name: "GetBookCount",
     component: GetBookCountView,
+  },
+  {
+    path: "/countBookAPI",
+    name: "CountBookAPI",
+    component: CountBookAPI,
+  },
+  {
+    path: "/weatherCheck",
+    name: "WeatherCheck",
+    component: WeatherView,
   },
   {
     path: "/",

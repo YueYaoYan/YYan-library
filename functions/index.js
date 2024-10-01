@@ -18,3 +18,17 @@ exports.countBooks = onRequest((req, res) => {
     }
   });
 });
+exports.countBooks = onRequest((req, res) => {
+  cors(req, res, async () => {
+    try {
+      const booksCollection = admin.firestore().collection("books");
+      const snapshot = await booksCollection.get();
+      const count = snapshot.size;
+
+      res.status(200).send({count});
+    } catch (error) {
+      console.error("Error counting books: ", error.message);
+      res.status(500).send("Error counting books");
+    }
+  });
+});
