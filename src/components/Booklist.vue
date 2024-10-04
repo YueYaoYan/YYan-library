@@ -152,7 +152,6 @@ export default {
 
         // filter limit
         q = query(q, limit(filterLimit));
-
         const querySnapshot = await getDocs(q);
         const booksArray = [];
         querySnapshot.forEach((doc) => {

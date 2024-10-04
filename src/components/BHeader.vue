@@ -31,6 +31,15 @@
         </li>
         <li class="nav-item">
           <router-link
+            to="/getAllBookAPI"
+            class="nav-link"
+            active-class="active"
+            aria-current="page"
+            >Get All Book API</router-link
+          >
+        </li>
+        <li class="nav-item">
+          <router-link
             to="/weatherCheck"
             class="nav-link"
             active-class="active"

@@ -10,7 +10,7 @@ export default {
   },
   computed:{
     showHeader(){
-      return this.$route.name !== 'CountBookAPI';
+      return !String(this.$route.name).match(/.*API$/);
     }
   }
 }
