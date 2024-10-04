@@ -3,6 +3,7 @@ import BHeader from './components/BHeader.vue';
 </script>
 
 <template>
+  <div class="main-container">
     <header>
       <BHeader/>
     </header>
@@ -10,6 +11,7 @@ import BHeader from './components/BHeader.vue';
     <main class="main-box">
       <router-view></router-view>
     </main>
+  </div>
 </template>
 
 <style scoped>
